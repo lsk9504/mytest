@@ -1,0 +1,57 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block content %}
+
+
+{% if messages %}
+    {% for message in messages %}
+
+    <script>alert("{{ message }}");</script>
+
+    {% endfor %}
+  {% endif %}
+
+
+<div class="text-center mt-4">
+    <form method="post">
+    {% csrf_token %}
+    제품명&nbsp:&nbsp{{ form.item }}&nbsp 회사명&nbsp:&nbsp{{ form.company }}
+        &nbsp수량&nbsp:&nbsp{{ form.quantity }}
+        <button type="submit" class="btn btn-success" >출고</button>
+    </form>
+</div>
+<div class="container mt-4">
+<table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>사진</th>
+                <th>제품명</th>
+                <th>가격</th>
+                <th>출고처</th>
+                <th>전화번호</th>
+                <th>출고 수량</th>
+                 <th>출고일</th>
+                <th>재고 수량</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for i in list %}
+            <tr>
+                <td class="align-middle"><img src="{{ i.item.image.url }}" width="50" height="50"></td>
+                <td class="align-middle">{{ i.item.name }}</a></td>
+                <td class="align-middle">{{ i.item.price }}</td>
+                <td class="align-middle">{{ i.company.name }}</td>
+                <td class="align-middle">{{ i.company.call }}</td>
+                <td class="align-middle">{{ i.quantity }}</td>
+                <td class="align-middle">{{ i.created_at |date:"Y-m-d"}}</td>
+                <td class="align-middle">{{ i.output_stock }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    </div>
+
+
+{% endblock %}

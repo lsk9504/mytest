@@ -1,0 +1,87 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load bootstrap_icons %}
+{% block content %}
+
+    <div class="container mt-2">
+<table id="example" class="table table-striped text-center" style="width:100%">
+        <thead>
+            <tr>
+                <th class="text-center">제목</th>
+                <th class="text-center">파일</th>
+                <th class="text-center">게시자</th>
+                <th class="text-center">생성일</th>
+                <th class="text-center">삭제</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if files %}
+        {% for i in files %}
+            <tr>
+                <td>{{ i.subject }}</td>
+                <td><a href="{{i.file.url}}">{% with i.file|stringformat:"s"|split:"/" as temp %}  <!-- split 안하면 collect_file/mytest.txt 처럼 경로까지 나온다. -->
+                    {{ temp.1 }}
+                    {% endwith %}</a>
+                </td>
+                <td>{{ i.who }}</td>
+                <td>{{ i.upload_at }}</td>
+                <td><a href="{% url 'shop:file_delete' i.id %}">삭제</a></td>
+            </tr>
+       {% endfor %}
+        {% endif %}
+        </tbody>
+
+    </table>
+</div>
+
+
+
+<!-- enctype으로 이미지나 오디오 파일 같은 이진 데이터를 쪼개서 전송하고 받는 측에서 다시 조립가능 -->
+<div class="text-center mt-6">
+    <h3><span class="badge bg-warning text-dark">{% bs_icon 'alarm' extra_classes="bi-valign-center" %}올리실 파일을 제목과 함께 아래 칸에 채워주세요</span></h3>
+ <div class="container-sm border mt-4 ">
+
+<form class="row g-3 ms-5 me-5 p-3" id="up" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+  <div class="input-group mb-3">
+  <span class="input-group-text" >파일 제목</span>
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="subject" name="subject" >
+  </div>
+
+  <div class="input-group mb-3">
+
+  <input class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" type="file" id="file" name="file" multiple>
+</div>
+  <div class="col-12">
+    <button type="button" onclick="valid();" class="btn btn-primary">올리기</button>
+  </div>
+</form>
+
+</div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+  new DataTable('#example');
+</script>
+
+<script>
+function valid(){
+
+ if(document.getElementById('subject').value==''){
+  alert("제목을 입력하세요");
+  }
+  else if(document.getElementById('file').value==''){
+  alert("파일을 선택하세요");
+  }
+  else{
+  alert("업로드 하였습니다.");
+  document.getElementById('up').submit();
+  }
+  }
+</script>
+{% endblock %}

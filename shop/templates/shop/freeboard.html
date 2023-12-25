@@ -1,0 +1,89 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block content %}
+
+<!--아래 주석 처리된 부분은 직접 페이징을 만들어 구현한 것, 하지만 여기는 datatable 소스를 이용했기에 잠시 주석해 둔다.-->
+<!--<div class="text-center">-->
+
+
+<!--<h2>문의 게시판 입니다.</h2>-->
+<!--{% for i in page_obj %}-->
+<!--<div class="container ">-->
+
+<!--  <div class="row rounded-pill border border-warning">-->
+<!--    <div class="col-7"><a href="{{ i.get_absolute_url }}">{{ i.subject }}</a></div>-->
+<!--    <div class="col-2"> {{ i.writer }}</div>-->
+<!--  <div class="col-3">{{ i.created_at }}</div>-->
+<!-- </div>-->
+
+<!--</div>-->
+<!--{% endfor %}-->
+<!--<br>-->
+<!--<p>-->
+<!--    <a href="{% url 'shop:freeboard_write' %}">글쓰기</a>-->
+<!--</p>-->
+<!--</div>-->
+<!--&lt;!&ndash; 이제부터는 페이징 처리 &ndash;&gt;-->
+<!--<div class="text-center">-->
+<!--<p>Page: {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</p>-->
+<!--</div>-->
+<!--&lt;!&ndash; 아래는 bootstrap의 pagination소스 가져온 것 &ndash;&gt;-->
+<!--<nav aria-label="Page navigation example">-->
+<!--  <ul class="pagination justify-content-center">-->
+<!--    <li class="page-item">-->
+<!--      {% if page_obj.has_previous %}-->
+<!--      <a class="page-link" href="{% url 'shop:freeboard' %}?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>-->
+<!--      {% endif %}-->
+<!--    </li>-->
+<!--    {% for num_page in page_obj.paginator.page_range %}-->
+<!--    {% if page_obj.number == num_page %} &lt;!&ndash; 비교시 ==의 좌우는 반드시 띄운다 &ndash;&gt;-->
+<!--    <li class="page-item active"><a class="page-link" href="{% url 'shop:freeboard' %}?page={{ num_page }}">{{ num_page }}</a></li>-->
+<!--     {% elif num_page > page_obj.number|add:'-3' and num_page < page_obj.number|add:'3' %}-->
+<!--    <li class="page-item"><a class="page-link" href="{% url 'shop:freeboard' %}?page={{ num_page }}">{{ num_page }}</a></li>-->
+<!--    {% endif %}-->
+<!--    {% endfor %}-->
+<!--    <li class="page-item">-->
+<!--      {% if page_obj.has_next %}-->
+<!--      <a class="page-link" href="{% url 'shop:freeboard' %}?page={{ page_obj.next_page_number }}">Next</a>-->
+<!--      {% endif %}-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</nav>-->
+
+<!--===============================================================================-->
+
+
+<div class="container mt-4 ">
+<table id="example" class="table table-striped text-center align-items-center" style="width:100%">
+        <thead>
+            <tr>
+                <th class="text-center">사진</th>
+                <th class="text-center">제목</th>
+                <th class="text-center">게시자</th>
+                <th class="text-center">작성일</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in page_obj %}
+            <tr>
+                <td class="align-middle"><img src="{{ i.image.url }}" width="50" height="50"></td>
+                <td class="align-middle"><a href="{{ i.get_absolute_url }}">{{ i.subject }}</a></td>
+                <td class="align-middle">{{ i.writer }}</td>
+                <td class="align-middle">{{ i.created_at }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+<div class="text-center">
+<a href="{% url 'shop:freeboard_write' %}"><button type="button" class="btn btn-primary">글쓰기</button></a>
+  </div>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+  new DataTable('#example');
+</script>
+{% endblock %}

@@ -2,71 +2,88 @@
 {% load static %}
 
 {% block content %}
+<div class="text-center">
 <div>
 	<h2>회원 정보</h2>
-	</div>
+</div>
 
 <div>
   {% if messages %}
     {% for message in messages %}
-  <div class="alert alert-primary" role="alert">
-    <h3><strong> {{ message }} </strong></h3>
-  </div>
+
+     <script>alert(" {{ message }} ");</script>
+
     {% endfor %}
   {% endif %}
 </div>
 
-	<form action="" method="POST" id="frm">
-		 {% csrf_token %}
-	<div class="login">
-	<table cellspacing="2" align="center" cellpadding="8" border="0">
-	<tr>
-	<td align="right">별명 :</td>
-	<td><input type="text" placeholder="{{ name }}" id="name" name="name" class="tb" /></td>
-	</tr>
-	<tr>
-	<td align="right">이메일 :</td>
-	<td><input type="text" placeholder="{{ email }}" id="email" name="email" class="tb" /></td>
-	</tr>
-	<tr>
-	</tr>
+    
 
-	<tr>
-	<td align="right"></td>
-		<td><input type="text" id="postcode" placeholder="우편번호" class="tb"></td>
-	</tr>
-		<tr>
-			<td align="right">주소:</td>
-			<td><input type="text"  id="address"  name="address1" class="tb"/></td>
-			<td><input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="tb"></td>
-		</tr>
-		<tr>
-		<td align="right">상세 주소 :</td>
-	<td><input type="text"  id="address2" name="address2" class="tb" /></td>
-	</tr>
-		<tr>
-			<td align="right"></td><td><input type="text" id="address3" placeholder="참고항목" class="tb"></td>
-	</tr>
-	<tr>
-	</tr>
-	<tr>
-	<td align="right">전화번호 :</td>
-	<td ><input type="text"  id="phone" placeholder="{{ phone }}" name="phone" class="tb" /></td>
-	</tr>
-	<tr>
-	</tr>
-	<tr>
-	<td></td>
-	<td>
-    <input type="button" value="확인" class="btn" onclick="registration()" />
-	<input type="button" value="취소" onclick="cancelFunc()" id="res" class="btn" />
-	</td>
-	</tr>
-	</table>
+<form class="row g-3 col-8 mx-auto " action="" method="POST" id="frm" >
+    {% csrf_token %}
+  <div class="col-md-6">
+    <label for="name" class="form-label">닉네임</label>
+    <input type="text" class="form-control" id="name" name="name">
+  </div>
+  <div class="col-md-6">
+    <label for="email" class="form-label">이메일</label>
+    <input type="email" class="form-control" id="email" name="email">
+  </div>
+  <div class="col-12">
+    <label for="postcode" class="form-label">우편번호</label>
+    <input type="text" class="form-control" id="postcode">
+  </div>
+
+    <div class="col-5">
+        <label>주소</label>
+	  </div>
+
+	<div class="col-5">
+        <label>상세주소</label>
+	  </div>
+
+  <div class="col-5">
+    <input type="text" class="form-control" id="address">
+	  </div>
+
+	<div class="col-5">
+       <input type="text" class="form-control" id="address2">
+  	</div>
+
+    <div class="col-2">
+		<button type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()">주소찾기</button>
 	</div>
-	</form>
-	<!-- create account box ending here.. -->
-	<!-- Main div ending here... -->
+
+
+	<div class="col-12">
+    <label for="address3" class="form-label">참고항목</label>
+    <input type="text" class="form-control" id="address3" >
+  </div>
+
+
+  <div class="col-12">
+    <label for="phone" class="form-label">전화번호</label>
+    <input type="text" class="form-control" id="phone" name="phone">
+  </div>
+
+  <div class="col-6 text-end">
+    <button type="button" class="btn btn-primary" onclick="registration();">수정</button>
+  </div>
+  <div class="col-6 text-start">
+	<button type="button" class="btn btn-primary" onclick="cancelFunc();" id="res">취소</button>
+	</div>
+</form>
+
+
+
+<script>
+
+	document.getElementById('email').value="{{ email }}"
+	document.getElementById('phone').value="{{ phone }}"
+	document.getElementById('name').value="{{ name }}"
+
+</script>
+
 
 <script>
 

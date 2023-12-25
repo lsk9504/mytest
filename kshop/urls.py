@@ -23,8 +23,10 @@ from django.contrib.auth import views as auth_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('summernote/',include('django_summernote.urls')),
     path('shop/',include('shop.urls')),
     path('cart/',include('cart.urls')),
+    path('erp/',include('erp.urls')),
     path('password_reset/',auth_view.PasswordResetView.as_view(template_name='authenticate/password_reset_form.html'),name='password_reset'),
     path('password_reset_done/', auth_view.PasswordResetDoneView.as_view(template_name='authenticate/password_reset_done.html'),name='password_reset_done'),
     path('password_reset_confirm/<uidb64>/<token>/',auth_view.PasswordResetConfirmView.as_view(template_name='authenticate/password_reset_confirm.html'),name='password_reset_confirm'),

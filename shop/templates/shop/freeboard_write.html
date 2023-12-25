@@ -1,0 +1,22 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="text-center mt-4">
+<form action="" method="POST" enctype="multipart/form-data"> <!--파일들 이동시에는 enctype....잊지 말자 -->
+    {% csrf_token %}
+    <p>
+       {{ form.subject.label_tag }} {{ form.subject }}
+    </p>
+   <p>
+        {{ form.content }}
+   </p>
+    <p>
+        {{ form.image.label_tag }} {{ form.image }}
+    </p>
+
+    <button type="submit" class="btn btn-primary" >보내기</button>
+</form>
+
+</div>
+{% endblock %}

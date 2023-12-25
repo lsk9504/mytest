@@ -5,41 +5,74 @@
 {% block content %}
 
 
-<div class="h-100 d-flex align-items-center justify-content-center">
-    <h1>주문 내역</h1>
+<div class="text-center">
+    <h2 class="mt-4"><strong><span class="bg-warning">주문 내역</span></strong></h2>
+</div>
+
   {% if messages %}
     {% for message in messages %}
-  <div class="alert alert-primary" role="alert">
-    <h3><strong> {{ message }} </strong></h3>
-  </div>
+   <script> alert("{{ message }}");</script>
     {% endfor %}
   {% endif %}
-</div>
+
 <br><br>
 
-<div class="h-100 d-flex align-items-center justify-content-center">
-    {% for i in order %}
-    주문일 : {{ i.created_at }}<br>
-      받는 분: {{ i.name }} <br>
-      이메일: {{ i.email }}<br>
-      배송지 주소: {{ i.address }}<br>
-      휴대전화: {{ i.phone }}<br>
+
+<div class="container col-8 mt-2 ">
+
+   {% for i in order %}
+    <div class="mb-5">
+    <table id="example" class="table table-bordered text-center" style="width:100%">
+        <thead>
+            <tr class="table-primary">
+                <th class="text-center">주문일</th>
+                <th class="text-center">받는분</th>
+                <th class="text-center">이메일</th>
+                <th class="text-center">배송지주소</th>
+                <th class="text-center">휴대전화</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="align-middle">{{ i.created_at|date:"Y/m/d" }}</td>
+                <td class="align-middle">{{ i.name }}</a></td>
+                <td class="align-middle">{{ i.email }}</td>
+                <td class="align-middle">{{ i.address }}</td>
+                <td class="align-middle">{{ i.phone }}</td>
+            </tr>
+            </tbody>
+    </table>
+
+        <table id="example2" class="table table-bordered text-center" style="width:100%">
+        <thead>
+            <tr class="table-success">
+                <th class="text-center">사진</th>
+                <th class="text-center">품명</th>
+                <th class="text-center">가격</th>
+                <th class="text-center">주문수량</th>
+                <th class="text-center">카테고리</th>
+                <th class="text-center">금액</th>
+
+            </tr>
+        </thead>
+        <tbody>
+         {% for j in i.orderitem.values %}   <!-- jsonfield 로서 i.orderitem.items ,i.orderitem.keys, i.orderitem.values 가능 -->
+            <tr>
+                <td class="align-middle"><img src="{{ j.product_image }}" width="150" height="150"></td>
+                <td class="align-middle">{{ j.product_name }}</a></td>
+                <td class="align-middle">{{ j.price }}</td>
+                <td class="align-middle">{{ j.quantity }}</td>
+                <td class="align-middle">{{ j.product_category }}</td>
+                <td class="align-middle">{{ j.total_price }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        </div>
+    {% endfor %}
+
 </div>
 
 
 
-{% for j in i.orderitem.values %} <!-- jsonfield 로서 i.orderitem.items ,i.orderitem.i.keys, i.orderitem.values 가능 -->
-<div class="h-100 d-flex align-items-center justify-content-center">
-    <img src="{{ j.product_image }}" width="200" height="200"> &nbsp&nbsp
-    {{ j.product_name }} &nbsp&nbsp
-    {{ j.price }} &nbsp&nbsp
-    {{ j.quantity }} &nbsp&nbsp
-    {{ j.prodcut_category }} &nbsp&nbsp
-    {{ j.total_price }}<br><br>
-    
-    </div>
-{% endfor %}
-
-
-{% endfor %}
 {% endblock %}

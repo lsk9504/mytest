@@ -1,0 +1,21 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="text-center">
+{% if results %}
+ <h2>검색 결과</h2>
+<ul >
+{% for i in results %}
+
+    <li>&nbsp<img src="{{ i.image.url }}" width="300" height="300"> &nbsp&nbsp {{ i.name }} &nbsp&nbsp {{ i.price }}</li><br>
+
+    {% endfor %}
+</ul>
+
+{% else %}
+<h2>검색 결과가 존재하지 않습니다.</h2>
+
+{% endif %}
+</div>
+{% endblock %}

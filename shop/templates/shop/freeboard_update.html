@@ -1,0 +1,54 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-sm">
+
+<form class="row g-3 ms-5 me-5" id="up" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+  <div class="col-12">
+    <label  class="form-label">제목 :</label>
+    <input type="text" class="form-control" id="subject" name="subject" >
+  </div>
+
+  <textarea id="summernote" name="content"></textarea>
+
+  <div class="col-12">
+  <label class="form-label">그림 파일 선택 :</label>
+      <img src="{{ temp.image.url }}" width="350" height="350">
+  <input class="form-control" type="file" id="image" name="image">
+</div>
+  <div class="col-12">
+    <button type="button" onclick="valid();" class="btn btn-primary">수정하기</button>
+  </div>
+</form>
+</div>
+<p>
+
+</p>
+<script>
+  document.getElementById('subject').value="{{ temp.subject }}";
+  document.getElementById('summernote').value="{{ temp.content|safe }}";
+  document.getElementById('image').value="{{ temp.image.url }}";
+</script>
+
+<script>
+
+  function valid(){
+
+  if(document.getElementById('subject').value==''){
+  alert("제목을 입력하세요");
+  }
+  else if($('#summernote').summernote('isEmpty')){  //summernote 사이트를 활용해 다양한 상황의 함수를 참고하자
+  alert("내용을 입력하세요");
+  }
+  else if(document.getElementById('image').value==''){
+  alert("파일을 선택하세요");
+  }
+  else{
+  alert("업로드 하였습니다.");
+  document.getElementById('up').submit();
+  }
+  }
+</script>
+{% endblock %}

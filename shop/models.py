@@ -78,7 +78,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50, unique=True,db_index=True)
     slug = models.SlugField(max_length=50, db_index=True,allow_unicode=True)
     image=models.ImageField(upload_to='products/%Y/%m/%d',blank=True)
-    description=models.TextField(blank=True)
+    description=models.TextField(blank=True)   #blank=True는 '' 이 저장되고 null=True는 NULL값 즉 빈 상태가 된다.
     price=models.IntegerField() #decimal_places은 필수로 소수점 설정
     available=models.BooleanField(default=True)
     created=models.DateTimeField(auto_now_add=True)
@@ -118,3 +118,57 @@ class Order(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.id, self.tracking_no)
+
+
+class Myfile(models.Model):
+    who=models.CharField(max_length=50)
+    subject=models.TextField(max_length=200)
+    file=models.FileField(upload_to="collect_files")
+    upload_at=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.subject;
+
+
+class Mywork(models.Model):
+    name=models.CharField(max_length=100)
+    start_date=models.DateField()
+    responsible=models.ForeignKey(User,on_delete=models.CASCADE)
+    week_number=models.CharField(max_length=2, blank=True)
+    end_date=models.DateField()
+
+    def __str__(self):
+        return str(self.name)
+
+    def save(self, *args, **kwargs ):
+        print(self.start_date.isocalendar()[1])
+        if self.week_number=="":
+            self.week_number=self.start_date.isocalendar()[1]
+        super().save(*args, **kwargs)
+
+
+class Freeboard(models.Model):
+    subject=models.CharField(max_length=50)
+    content=models.TextField(max_length=500)
+    writer=models.CharField(max_length=20)
+    image=models.ImageField(upload_to='freeboard_imgs/%Y/%m/%d',default='default/default.jpg' ,blank=True,null=True)
+    created_at=models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering=('-created_at',)
+
+    def __str__(self):
+        return self.subject
+
+    def get_absolute_url(self):
+        return reverse('shop:freeboard_detail',args=[self.id])#reverse는
+        # render대신 url의 name을 이용한 이동이 가능한데 인수 args가 가능하고, kwargs={'count': 50} 처럼 kwargs도 가능
+
+class Reply(models.Model):
+    content=models.TextField(max_length=200)
+    writer = models.CharField(max_length=20)
+    created_at=models.DateTimeField(auto_now_add=True)
+    freeboard=models.ForeignKey(Freeboard,on_delete=models.CASCADE)
+
+    class Meta:
+        ordering=('-created_at',)

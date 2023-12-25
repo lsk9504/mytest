@@ -14,9 +14,11 @@ def cart_add(request,product_id):
         userid=request.user.id
     else:
         return redirect('shop:login_user')
+
     cart=Cart(request,userid)
     product=get_object_or_404(Product,id=product_id)
     form=CartCountForm(request.POST)
+
     if form.is_valid():
         quantity=form.cleaned_data['quantity']
         cart.add(product,quantity)

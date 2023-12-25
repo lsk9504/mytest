@@ -1,80 +1,112 @@
 {% extends "shop/base.html" %}
 {% load static %}
-
+{% load bootstrap_icons %}
 
 {% block content %}
-<div>
-	<h2>회원 가입</h2>
-	</div>
+
 
 <div>
   {% if messages %}
     {% for message in messages %}
-  <div class="alert alert-primary" role="alert">
-    <h3><strong> {{ message }} </strong></h3>
-  </div>
+
+     <script> alert("{{ message }}"); </script>
+
     {% endfor %}
   {% endif %}
 </div>
 
-	<form action="" method="POST" id="frm">
-		 {% csrf_token %}
-	<div class="login">
-	<table cellspacing="2" align="center" cellpadding="8" border="0">
-	<tr>
-	<td align="right">별명 :</td>
-	<td><input type="text" placeholder="Enter user here" id="name" name="name" class="tb" /></td>
-	</tr>
-	<tr>
-	<td align="right">이메일 :</td>
-	<td><input type="text" placeholder="Enter Email ID here" id="email" name="email" class="tb" /></td>
-	</tr>
-	<tr>
-	</tr>
-	<tr>
-	<td align="right">비밀번호 :</td>
-	<td><input type="password"  id="password" name="password" class="tb" /></td>
-	</tr>
-	<tr>
-	<td align="right">비밀번호 재입력 :</td>
-	<td><input type="password"  id="password2" class="tb" /></td>
-	</tr>
-	<tr>
-	<td align="right"></td>
-		<td><input type="text" id="postcode" placeholder="우편번호" class="tb"></td>
-	</tr>
-		<tr>
-			<td align="right">주소:</td>
-			<td><input type="text"  id="address"  name="address1" class="tb"/></td>
-			<td><input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="tb"></td>
-		</tr>
-		<tr>
-		<td align="right">상세 주소 :</td>
-	<td><input type="text"  id="address2" name="address2" class="tb" /></td>
-	</tr>
-		<tr>
-			<td align="right"></td><td><input type="text" id="address3" placeholder="참고항목" class="tb"></td>
-	</tr>
-	<tr>
-	</tr>
-	<tr>
-	<td align="right">전화번호 :</td>
-	<td ><input type="text"  id="phone" name="phone" class="tb" /></td>
-	</tr>
-	<tr>
-	</tr>
-	<tr>
-	<td></td>
-	<td>
-        <input type="button" value="확인" class="btn" onclick="registration()" />
-	<input type="reset" value="초기화" onclick="clearFunc()" id="res" class="btn" />
-	</td>
-	</tr>
-	</table>
-	</div>
-	</form>
-	<!-- create account box ending here.. -->
-	<!-- Main div ending here... -->
+
+
+
+<div class="container">
+<hr>
+<div class="card bg-light">
+<article class="card-body mx-auto" style="max-width: 400px;">
+	<h4 class="card-title mt-3 text-center">Create Account</h4>
+	<p class="text-center">Get started with your free account</p>
+
+	<form action="" method="POST" id="frm" >
+		{% csrf_token %}
+	<div class="form-group input-group mb-3">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> {% bs_icon 'person-fill' size='1.5em' %} </span>
+		 </div>
+        <input class="form-control" id="name" name="name" placeholder="별명" type="text">
+    </div> <!-- form-group// -->
+    <div class="form-group input-group mb-3">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> {% bs_icon 'mailbox2' size='1.5em' %} </span>
+		 </div>
+        <input id="email" name="email" class="form-control" placeholder="이메일" type="email">
+		<span class="input-group-text"><button type="button" onclick="" class="btn btn-primary">Check</button></span>
+    </div> <!-- form-group// -->
+
+		<div class="form-group input-group mb-3">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> {% bs_icon 'lock-fill' size='1.5em' %} </span>
+		</div>
+        <input id="password" name="password" class="form-control" placeholder="비밀 번호" type="password">
+    </div> <!-- form-group// -->
+    <div class="form-group input-group mb-3">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> {% bs_icon 'lock-fill' size='1.5em' %} </span>
+		</div>
+        <input id="password2" class="form-control" placeholder="비밀 번호 다시" type="password">
+    </div> <!-- form-group// -->
+
+    <div class="form-group input-group mb-3">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> {% bs_icon 'telephone-fill' size='1.5em' %} </span>
+		</div>
+    	<input id="phone" name="phone" class="form-control" placeholder="전화 번호 (예) 000-0000-0000" type="text">
+    </div> <!-- form-group// -->
+
+		<div class="form-group input-group mb-3">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> {% bs_icon 'house-fill' size='1.5em' %} </span>
+		</div>
+    	<input id="postcode" class="form-control" placeholder="우편 번호" type="text">
+    </div> <!-- form-group// -->
+
+		<div class="form-group input-group mb-3">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> {% bs_icon 'house-fill' size='1.5em' %} </span>
+		</div>
+    	<input id="address"  name="address1" class="form-control" placeholder="주소" type="text">
+			<span class="input-group-text"><button type="button" onclick="sample6_execDaumPostcode()" class="btn btn-primary">검색</button></span>
+    </div> <!-- form-group// -->
+
+		<div class="form-group input-group mb-3">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> {% bs_icon 'house-fill' size='1.5em' %} </span>
+		</div>
+    	<input id="address2" name="address2" class="form-control" placeholder="상세 주소" type="text">
+    </div> <!-- form-group// -->
+
+
+		<div class="form-group input-group mb-3">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> {% bs_icon 'house-fill' size='1.5em' %} </span>
+		</div>
+    	<input id="address3" class="form-control" placeholder="참고 항목" type="text">
+    </div> <!-- form-group// -->
+
+
+    <div class="form-group text-center mb-3">
+        <button type="button" class="btn btn-primary btn-block" onclick="registration()"> Create Account  </button>
+    </div> <!-- form-group// -->
+    <p class="text-center">Have an account? <a href="{% url 'shop:login_user' %}">Log In</a> </p>
+</form>
+</article>
+</div> <!-- card.// -->
+
+</div>
+<!--container end.//-->
+
+
+
+
+
 
 <script>
 
@@ -160,7 +192,6 @@
 		}
 		else
 		{
-               alert('가입을 축하드립니다. 로그인으로 이동합니다.');
 			   document.getElementById("frm").submit();
 		}
 	}

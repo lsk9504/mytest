@@ -1,0 +1,25 @@
+
+<div class="container mt-4">
+    Matches {{ products|length }} / {{ count }} product in the directory.
+<table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th class="text-center">사진</th>
+                <th class="text-center">제품명</th>
+                <th class="text-center">가격</th>
+                <th class="text-center">재고수량</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in products %}
+            <tr>
+                <td class="text-center align-middle"><img src="{{ i.image.url }}" width="50" height="50"></td>
+                <td class="text-center align-middle"><a href="{{ i.get_absolute_url }}">{{ i.name }}</a></td>
+                <td class="text-center align-middle">{{ i.price }}</td>
+                <td class="text-center align-middle">{{ i.stock }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    </div>

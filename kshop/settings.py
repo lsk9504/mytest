@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_p9tq2qhu^5b&42p+mat!o30h30!sqzwxdca@=(0ml#d+^fl=j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False           # 게시하기 전 반드시 DEBUG 모드는 False 해놓는다.  아니면 에러 시 코드가 노출된다.
 
 ALLOWED_HOSTS = []
 
@@ -40,8 +40,11 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'bootstrap5',
-
+    'django_bootstrap_icons',
+    'erp',
+    'django_summernote',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -149,3 +152,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'wavecanon@naver.com'
 EMAIL_HOST_PASSWORD = '^^lsk9504^^'
 DEFAULT_FROM_EMAIL=EMAIL_HOST_USER
+
+

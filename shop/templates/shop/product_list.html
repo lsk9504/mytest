@@ -5,7 +5,7 @@
 
  <div class="album py-5 bg-light">
     <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-6 g-6">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 gx-6 gy-4"> <!-- gx는 수평 거터(수평열 간격) gy는 수직 거터(줄 간격) -->
 
         {% for product in products %}
 
@@ -13,23 +13,23 @@
           <div class="card shadow-sm h-100 ">
               <a href="{{ product.get_absolute_url }}">
             <img class="bd-placeholder-img card-img-top" src="{% if product.image %}{{ product.image.url }}
-                {% else %}{% static 'img/no_image.jpg' %}{% endif %}" width="100%" height="225"  role="img" aria-label="Placeholder: Thumbnail"
-                 preserveAspectRatio="xMidYMid slice" focusable="false"><title></title>
+                {% else %}{% static 'img/no_image.jpg' %}{% endif %}" width="100%" height="260"  role="img" aria-label="Placeholder: Thumbnail"
+                 preserveAspectRatio="xMidYMid slice" focusable="false">
               <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">
-                  <a href="{{ product.get_absolute_url }}">{{ product.name }}</a></text></img>
+                  <a href="{{ product.get_absolute_url }}" class="text-center text-secondary"><h5 class="mt-2">{{ product.name }}</h5></a></text></img>
               </a>
-            <div class="card-body" >
-              <p class="card-text" >{{ product.description|truncatechars:50 }}</p>  <!-- 글자수 제한  -->
+            <div class="card-body " >
+              <p class="card-text " >{{ product.description|truncatechars:30 }}</p>  <!-- 글자수 제한  -->
                 </div>
+              <div class="text-center"><span class="bg-warning"><strong>{{ product.price }}&nbsp(원)</strong></span></div>
               <div class="d-flex justify-content-between align-items-end">
-                  <button type="button" class="btn btn-sm btn-outline-secondary "><a href="{{ product.get_absolute_url }}" >View</a></button>
-                <small class="text-muted">9 mins</small>
+                  <a href="{{ product.get_absolute_url }}" ><button type="button" class="btn btn-sm btn-primary">자세히</button></a>
+                <small class="text-muted">sale</small>
 
             </div>
           </div>
         </div>
         {% endfor %}
-
 
       </div>
     </div>

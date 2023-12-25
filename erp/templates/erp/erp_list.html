@@ -1,0 +1,116 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container text-center ">
+
+<div>
+<form method="post" class="m-3" >
+        {% csrf_token %}
+메인 카테고리&nbsp:&nbsp{{ form.main_category }}&nbsp&nbsp  <!-- 폼 컨트롤 이름(여기서는 main_category)을 이용하여 name='main_category',id='id_main_category'
+                                                        자동으로 앞에 id가 붙어 id와 name이 정해진다. html 입장에서는 select 태그의 name과 id를 정해주는 것이다.-->
+      서브 카테고리&nbsp:&nbsp{{ form.sub_category }}  <!-- name='sub_category',  id='id_sub_category'  -->
+    &nbsp&nbsp 아이템 : {{ form.item }}
+
+    <button type="submit" class="btn btn-success">조회</button>
+
+     &nbsp&nbsp직접 입력 : <input  type="search" class="col-3"
+           name="search" placeholder="찾고자 하는 아이템"
+           hx-post="{% url 'erp:search_results_view' %}"
+           hx-trigger="keyup changed,search"
+           hx-target="#search-results"
+           hx-indicator=".htmx-indicator">  <!-- hx-indicator는 검색이 진행 중임을 알림 -->
+     <!-- form-control을 사용하기 때문에 할당된 전체 너비를 사용한다. col-md-4 등의 열 속성이나 기타 속성을 사용하여 원하는 크기로 만들 수 있다.-->
+</form>
+</div>
+
+<div id="search-results">
+
+<div class="container mt-4 ">
+<table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th class="text-center">사진</th>
+                <th class="text-center">제품명</th>
+                <th class="text-center">가격</th>
+                <th class="text-center">재고수량</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if items %}
+        {% for i in items %}
+            <tr>
+                <td class="align-middle"><img src="{{ i.image.url }}" width="50" height="50"></td>
+                <td class="align-middle"><a href="{{ i.get_absolute_url }}">{{ i.name }}</a></td>
+                <td class="align-middle">{{ i.price }}</td>
+                <td class="align-middle">{{ i.stock }}</td>
+            </tr>
+        {% endfor %}
+        {% endif %}
+
+        {% if item %}
+            <tr>
+                <td class="align-middle"><img src="{{ item.image.url }}" width="50" height="50"></td>
+                <td class="align-middle"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></td>
+                <td class="align-middle">{{ item.price }}</td>
+                <td class="align-middle">{{ item.stock }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+
+
+<!--<div id="search-results">-->
+<!--{% if items  %}-->
+<!--{% for i in items %}-->
+<!--<p>-->
+
+<!--        <a href="{{ i.get_absolute_url }}"><img src="{{ i.image.url }}" width="30" height="30"></a> &nbsp-->
+<!--        <a href="{{ i.get_absolute_url }}">{{ i.name }} </a> &nbsp {{ i.price }}&nbsp&nbsp&nbsp 재고 수량: {{ i.stock }}-->
+
+<!--</p>-->
+<!--{% endfor %}-->
+<!--{% endif %}-->
+
+
+<!--{% if item %}-->
+<!-- <a href="{{ item.get_absolute_url }}"><img src="{{ item.image.url }}" width="30" height="30"></a> &nbsp-->
+<!--        <a href="{{ item.get_absolute_url }}">{{ item.name }} </a> &nbsp {{ item.price }}&nbsp&nbsp&nbsp 재고 수량: {{ item.stock }}-->
+<!--{% endif %}-->
+<!--</div>-->
+<!--</div>-->
+<script>
+/*
+    function show_list(value){
+
+    var main=document.getElementById('id_main_category').value
+    var sub=document.getElementById('id_sub_category').value
+    var item=document.getElementById('id_item').value
+
+
+    if(main && !sub && !item){
+    document.getElementsById('only_main').submit();
+    window.alert("메인");
+    }
+    else if(main && sub && !item){
+    document.getElementsById('main_sub').submit();
+     window.alert("메인, 서브");
+    }else if(main && sub && item){
+    document.getElementsById('main_sub_item').submit();
+     window.alert("메인 , 서브, 아템 ")
+    }
+
+    }
+*/
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<script>new DataTable('#example');</script>
+{% endblock %}
+

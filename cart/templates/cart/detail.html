@@ -1,13 +1,9 @@
 {% extends "shop/base.html" %}
 {% load static %}
-
-
 {% block content %}
 
-
-
-
-<div class="h-100 d-flex align-items-center justify-content-center">
+<div class="text-center">
+<div >
   <p>
     <h1>Shopping cart</h1>
   </p>
@@ -19,16 +15,18 @@
     {% endfor %}
   {% endif %}
 </div>
-<div class="h-100 d-flex align-items-center justify-content-center">
-<table  >
+
+
+
+<table class="mx-auto" >
   <thead>
   <tr>
     <th>Image</th>
     <th>Product</th>
     <th>Quantity</th>
-    <th>Remove</th>
-    <th>Unit Price</th>
     <th>Price</th>
+    <th>Unit Price</th>
+    <th>Remove</th>
   </tr>
   </thead>
   <tbody>
@@ -43,14 +41,14 @@
     </td>
     <td>{{ product.name }} </td>
     <td>{{ item.quantity }}</td>
+    <td class="num">{{ item.price }}&nbsp(원)</td>
+    <td class="num">{{ item.total_price }}&nbsp(원)</td>
     <td>
       <form action="{% url 'cart:cart_remove' product.id %}" method="post">
         {% csrf_token %}
-      <input type="submit" value="Remove">
+      <input type="submit" class="btn btn-primary" value="Remove">
       </form>
     </td>
-    <td class="num">{{ item.price }}&nbsp(원)</td>
-    <td class="num">{{ item.total_price }}&nbsp(원)</td>
   </tr>
   {% endwith %}
   {% endfor %}
@@ -61,22 +59,52 @@
   </tr>
   </tbody>
 </table>
-
   </div>
+
 <br><br><br>
 
-<div class="h-100 d-flex align-items-center justify-content-center">
 
-    <form action="" method="post">
-      {% csrf_token %}
-      받는 분: <input type="text" name="name" id="name"> <br>
-      이메일: <input type="email" name="email" id="email" ><br>
-      배송지 주소: <input type="text" name="address" id="address" size="40" ><br> <!-- input 태그 크기는 글자수인 size 속성으로 -->
-      휴대전화: <input type="text" name="phone" id="phone" ><br>
-      <input type="submit" value="계산">
-      <a href="{% url 'shop:product_list' %}" class="buttonlight">쇼핑 계속</a>
-    </form>
-</div>
+
+
+<!--<div>-->
+<!--    <form action="" method="post">-->
+<!--      {% csrf_token %}-->
+<!--      받는 분: <input type="text" name="name" id="name"> <br>-->
+<!--      이메일: <input type="email" name="email" id="email" ><br>-->
+<!--      배송지 주소: <input type="text" name="address" id="address" size="40" ><br> &lt;!&ndash; input 태그 크기는 글자수인 size 속성으로 &ndash;&gt;-->
+<!--      휴대전화: <input type="text" name="phone" id="phone" ><br>-->
+<!--      <button type="submit" class="btn btn-primary mt-2" >계산</button>-->
+<!--      <a href="{% url 'shop:product_list' %}"><button type="button" class="btn btn-primary mt-2">쇼핑계속</button></a>-->
+<!--    </form>-->
+<!--</div>-->
+
+
+<form action="" method="post" class="row g-3 col-md-6 text-center mx-auto mt-6" >
+  {% csrf_token %}
+  <div class="col-md-6">
+    <label for="name" class="form-label">이름 : </label>
+    <input type="text" class="form-control" id="name" name="name">
+  </div>
+  <div class="col-md-6">
+    <label for="email" class="form-label">메일 : </label>
+    <input type="email" class="form-control" id="email" name="email">
+  </div>
+  <div class="col-12">
+    <label for="address" class="form-label">주소 : </label>
+    <input type="text" class="form-control" id="address" name="address" placeholder="울산시 남구......">
+  </div>
+  <div class="col-12">
+    <label for="phone" class="form-label">전화번호</label>
+    <input type="text" class="form-control" id="phone" name="phone" placeholder="010-1111-1111">
+  </div>
+
+  <div class="col-6 text-end">
+    <button type="submit" class="btn btn-primary mt-2" >결재</button>
+  </div>
+    <div class="col-6 text-start">
+      <a href="{% url 'shop:product_list' %}"><button type="button" class="btn btn-primary mt-2">쇼핑계속</button></a>
+  </div>
+</form>
 
 
 <script>

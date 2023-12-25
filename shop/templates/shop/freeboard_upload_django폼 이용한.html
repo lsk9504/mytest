@@ -1,0 +1,22 @@
+<div class="text-center">
+
+<div>
+  {% if messages %}
+    {% for message in messages %}
+
+    <script>alert("{{ message }}");</script>
+
+    {% endfor %}
+  {% endif %}
+</div>
+
+<form action="" method="POST" enctype="multipart/form-data"> <!--파일들 이동시에는 enctype....잊지 말자 -->
+    {% csrf_token %}
+    <p>{{ form.subject }}</p>
+    <p>{{ form.content }}</p>
+    <img src="{{ temp.image.url }}" width="350" height="350">
+    <p>{{ form.image }}</p>
+    <input type="submit" value="수정하기" />
+</form>
+</div>
+
