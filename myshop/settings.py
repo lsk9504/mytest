@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-7ues_9tzxq^&nn3u%npx4y-7(8!e0j3wotd-np65&!3f)$c8=w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['leecase.pythonanywhere.com',]
+ALLOWED_HOSTS = ['leecase.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop',
+    'board',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,4 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'shop','static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, "static")#배포 전에 최종 모을 폴더 (python manage.py collectstatic)
 MEDIA_URL='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+

@@ -23,6 +23,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('shop.urls')),
+    path('board/',include('board.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path("signup/", views.signup, name="signup"),
     ]

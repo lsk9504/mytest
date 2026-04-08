@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark">자유게시판</h2>
+        <a href="{% url 'post_create' %}" class="btn btn-primary px-4 shadow-sm">
+            <i class="bi bi-pencil-fill"></i> 글쓰기
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" style="vertical-align: middle;">
+                    <thead class="table-light">
+                        <tr class="text-secondary">
+                            <th scope="col" class="ps-4 py-3" style="width: 10%;">번호</th>
+                            <th scope="col" class="py-3" style="width: 50%;">제목</th>
+                            <th scope="col" class="py-3" style="width: 20%;">작성자</th>
+                            <th scope="col" class="pe-4 py-3 text-end" style="width: 20%;">작성일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for post in posts %}
+                        <tr>
+                            <td class="ps-4 text-muted small">{{ post.pk }}</td>
+                            <td>
+                                <a href="{% url 'post_detail' post.pk %}" class="text-decoration-none text-dark fw-medium">
+                                    {{ post.title }}
+                                </a>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark border fw-normal">
+                                    {{ post.author.username }}
+                                </span>
+                            </td>
+                            <td class="pe-4 text-end text-muted small">
+                                {{ post.created_at|date:"Y-m-d" }}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                등록된 게시물이 없습니다. 첫 글을 작성해보세요!
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white py-3 border-bottom">
+                    <h4 class="mb-0 fw-bold text-primary">
+                        {% if post %} <i class="bi bi-pencil-square"></i> 게시글 수정 {% else %} <i class="bi bi-plus-circle"></i> 새 게시글 작성 {% endif %}
+                    </h4>
+                </div>
+
+                <div class="card-body p-4">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-4">
+                            <label for="id_title" class="form-label fw-bold text-secondary">제목</label>
+                            <input type="text" name="title" id="id_title"
+                                   class="form-control form-control-lg"
+                                   placeholder="제목을 입력하세요"
+                                   value="{{ post.title|default:'' }}" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="id_content" class="form-label fw-bold text-secondary">내용</label>
+                            <textarea name="content" id="id_content"
+                                      class="form-control" rows="12"
+                                      placeholder="내용을 자유롭게 작성해 주세요"
+                                      style="resize: none;" required>{{ post.content|default:'' }}</textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 border-top pt-4">
+                            <a href="javascript:history.back()" class="btn btn-outline-secondary px-4">
+                                취소
+                            </a>
+                            <button type="submit" class="btn btn-primary px-4 shadow-sm">
+                                {% if post %} 수정 완료 {% else %} 등록하기 {% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <p class="text-center text-muted mt-3 small">
+                작성하신 글은 커뮤니티 가이드라인을 준수해야 합니다.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
