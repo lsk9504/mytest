@@ -115,6 +115,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'shop','static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, "static")#배포 전에 최종 모을 폴더 (python manage.py collectstatic)
