@@ -14,4 +14,3 @@ db.sqlite3
 local_settings.py
 
 # 미디어/정적 파일
-/media
